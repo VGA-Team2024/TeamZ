@@ -1,10 +1,10 @@
-using System.Collections;
+ï»¿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-/// <summary>{İ‚ÌŠî’êƒNƒ‰ƒX</summary>
+/// <summary>æ–½è¨­ã®åŸºåº•ã‚¯ãƒ©ã‚¹</summary>
 public class ShopBase : MonoBehaviour
 {
-    /// <summary>w“ü‚µ‚½{İ‚ÌŠ”</summary>
+    /// <summary>è³¼å…¥ã—ãŸæ–½è¨­ã®æ‰€æŒæ•°</summary>
     int _level = 0; 
     void Start()
     {
@@ -14,30 +14,30 @@ public class ShopBase : MonoBehaviour
     {
         
     }
-    /// <summary>w“ü‚µ‚½{İ‚âƒAƒbƒvƒOƒŒ[ƒh‚Ìˆ—‚ğã‘‚«‚µ‚Ä‚­‚¾‚³‚¢</summary>
+    /// <summary>è³¼å…¥ã—ãŸæ–½è¨­ã‚„ã‚¢ãƒƒãƒ—ã‚°ãƒ¬ãƒ¼ãƒ‰ã®å‡¦ç†ã‚’ä¸Šæ›¸ãã—ã¦ãã ã•ã„</summary>
     public virtual void ItemProcess()
     {
 
     }
-    /// <summary>w“üˆ—BButton‚©‚çŒÄ‚Ño‚·</summary>
+    /// <summary>è³¼å…¥å‡¦ç†ã€‚Buttonã‹ã‚‰å‘¼ã³å‡ºã™</summary>
     public void Purchase(Item item)
     {
-        //‚±‚±‚ÉƒŠƒ\[ƒXÁ”ïˆ—‚ğì‚é—\’è
-        if (item == Item.Upgrade)//‚à‚µƒAƒbƒvƒOƒŒ[ƒh‚¾‚Á‚½‚ç
+        //ã“ã“ã«ãƒªã‚½ãƒ¼ã‚¹æ¶ˆè²»å‡¦ç†ã‚’ä½œã‚‹äºˆå®š
+        if (item == Item.Upgrade)//ã‚‚ã—ã‚¢ãƒƒãƒ—ã‚°ãƒ¬ãƒ¼ãƒ‰ã ã£ãŸã‚‰
         {
-            //‚±‚±‚ÉUI‚ğÁ‚·ˆ—
+            //ã“ã“ã«UIã‚’æ¶ˆã™å‡¦ç†
         }
         else
         {
             _level++;
         }
     }
-    /// <summary>w“ü•¨‚Ìí—Ş</summary>
+    /// <summary>è³¼å…¥ç‰©ã®ç¨®é¡</summary>
     public enum Item 
     {
-        /// <summary>ƒAƒbƒvƒOƒŒ[ƒh</summary>
+        /// <summary>ã‚¢ãƒƒãƒ—ã‚°ãƒ¬ãƒ¼ãƒ‰</summary>
         Upgrade,
-        /// <summary>{İAŒš•¨</summary>
+        /// <summary>æ–½è¨­ã€å»ºç‰©</summary>
         Building,
     }
 }
