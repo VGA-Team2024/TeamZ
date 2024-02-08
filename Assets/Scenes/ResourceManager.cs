@@ -7,7 +7,11 @@ using UnityEngine.UI;
 /// </summary>
 public class ResourceManager : MonoBehaviour
 {
+<<<<<<< HEAD
     [Tooltip("ƒŠƒ\[ƒXŠÇ—‚ğ‚·‚éƒNƒ‰ƒX‚ÌƒCƒ“ƒXƒ^ƒ“ƒX")] ResourceManager Instance = default;
+=======
+    [SerializeField, Tooltip("ƒŠƒ\[ƒX‚Ì‘—Ê")] public static ResourceManager Instance = default;
+>>>>>>> 6d490c4 ([update] ã€ŒResourceManager.Instance.é–¢æ•°ã€ã§å‘¼ã¹ã‚‹ã‚ˆã†ã«ã—ãŸã€‚)
     [Header("ƒŠƒ\[ƒX‚Ì‘—Ê")]
     [SerializeField, Tooltip("ƒŠƒ\[ƒX‚Ì‘—Ê")] double _resourceTotalAmount = default;
     [Header("ƒeƒLƒXƒgiƒŠƒ\[ƒX‚Ì‘—Êj")]
