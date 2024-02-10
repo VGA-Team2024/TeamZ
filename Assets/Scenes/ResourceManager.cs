@@ -16,7 +16,8 @@ public class ResourceManager : MonoBehaviour
     [SerializeField, Tooltip("毎秒加算する総量")] float _addAmountEverySecond = default;
 
     #region プロパティ
-    public double ResourceTotalAmount { get => _resourceTotalAmount; /*set => _resourceTotalAmount = value;*/ }
+    /// <summary> リソースの総量 </summary>
+    public double ResourceTotalAmount { get => _resourceTotalAmount; }
     #endregion
 
     void Awake()
@@ -53,7 +54,7 @@ public class ResourceManager : MonoBehaviour
     /// クリック対象をクリックするときに呼ぶ
     /// クリックのたびに加算
     /// </summary>
-    /// <param name="value"></param>
+    /// <param name="value"> 加算する量 </param>
     public void AddResource(int value)
     {
         _resourceTotalAmount += value;
@@ -64,11 +65,18 @@ public class ResourceManager : MonoBehaviour
     /// 所持しているリソースの総量を超えていたら、何もしない
     /// </summary>
     /// <param name="value">消費量</param>
-    public void UseResource(float value)
+    /// <returns>購入できたか</returns>
+    public bool UseResource(float value)
     {
         if (value <= ResourceTotalAmount)
+        {
             _resourceTotalAmount -= value;
+            return true;
+        }
         else
-            Debug.LogWarning("コストが所持しているリソース量を超えています。");
+        {
+            Debug.LogWarning("コストが、所持しているリソース量を超えています。");
+            return false;
+        }
     }
 }
