@@ -54,8 +54,6 @@ public abstract class ShopBase : MonoBehaviour
         }
         else
         {
-
-
             _level++;//施設だったらレベルを上げる。
         }
     }

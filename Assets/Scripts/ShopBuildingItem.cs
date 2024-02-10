@@ -1,24 +1,21 @@
-using System.Collections;
-using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
 
 public class ShopBuildingItem : ShopBase
 {
     /// <summary>
-    /// ’ˆÓF‚±‚ÌƒNƒ‰ƒX‚ÍƒVƒ‡ƒbƒv‚ÌBuildingƒAƒCƒeƒ€Button‚É’£‚è•t‚¯‚é‚Â‚à‚è‚Å‘‚«‚Ü‚µ‚½•ÏX“_‚â‚²•s–‚ª‚ ‚é•û‚Í–ì“c—Ï‘¾˜Y‚Ü‚Å‚¨\‚µ•t‚¯‚­‚¾‚³‚¢B
+    /// æ³¨æ„ï¼šã“ã®ã‚¯ãƒ©ã‚¹ã¯ã‚·ãƒ§ãƒƒãƒ—ã®Buildingã‚¢ã‚¤ãƒ†ãƒ Buttonã«å¼µã‚Šä»˜ã‘ã‚‹ã¤ã‚‚ã‚Šã§æ›¸ãã¾ã—ãŸå¤‰æ›´ç‚¹ã‚„ã”ä¸æº€ãŒã‚ã‚‹æ–¹ã¯é‡ç”°å€«å¤ªéƒã¾ã§ãŠç”³ã—ä»˜ã‘ãã ã•ã„ã€‚
     /// </summary>
 
     [SerializeField] public float resoursePlus = default;
-    //resourse‚Ì‘‰Á”
+    //resourseã®å¢—åŠ æ•°
     [SerializeField] float shopCost = default;
-    //shop‚É‚ ‚éItem‚ÌƒRƒXƒg
+    //shopã«ã‚ã‚‹Itemã®ã‚³ã‚¹ãƒˆ
     [SerializeField] float CostPlus = default;
-    //Cost‚Ì‘‰Á”{—¦
+    //Costã®å¢—åŠ å€ç‡
     [SerializeField] GameObject resourceManagerObject = null;
-    //ResourceManager‚ª‚Â‚¢‚Ä‚éObject‚ğæ“¾‚·‚é
+    //ResourceManagerãŒã¤ã„ã¦ã‚‹Objectã‚’å–å¾—ã™ã‚‹
     ResourceManager resourceManager;
-    //ResourceManager‚ÌŠÖ”‚ğæ“¾‚·‚é‚½‚ß‚Ì“ü‚ê•¨
+    //ResourceManagerã®é–¢æ•°ã‚’å–å¾—ã™ã‚‹ãŸã‚ã®å…¥ã‚Œç‰©
 
     void Start()
     {
@@ -36,13 +33,13 @@ public class ShopBuildingItem : ShopBase
         if(resourceManager.ResourceTotalAmount >= shopCost)
         {
             resourceManager.UseResource(shopCost);
-            Purchase(Item.Building);
+            Purchase();
             shopCost *= CostPlus;
             resourceManager.AddEverySecond(resoursePlus);
         }
         else
         {
-            Debug.Log("ƒRƒXƒg‚ª‘«‚è‚Ü‚¹‚ñ");
+            Debug.Log("ã‚³ã‚¹ãƒˆãŒè¶³ã‚Šã¾ã›ã‚“");
         }
     }
 }
