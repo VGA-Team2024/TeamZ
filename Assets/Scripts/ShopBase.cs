@@ -1,6 +1,5 @@
 ﻿using System;
 using UnityEngine;
-using UnityEngine.UI;
 /// <summary>
 /// 施設の基底クラス
 /// abstractつけた抽象クラスなので
@@ -42,19 +41,15 @@ public abstract class ShopBase : MonoBehaviour
     public void Purchase()
     {
         _nowPrice = (float)(Math.Pow(1.15, _level) * _price);//値段計算。_level == 0なら_priceの値がそのまま入る
-        bool purchased = _resouce.UseResource(_nowPrice);//購入処理。変えたかどうかを代入
+        bool purchased = _resouce.UseResource(_nowPrice);//購入処理。買えたかどうかを代入
         if (purchased)
         {
+            //アップグレードアイテム等、途中でshopから消えるアイテムは継承先で処理
             ItemProcess();
-            if (_item == Item.Upgrade)//もしアップグレードだったらボタンを押せなくする。
+            //施設レベルは値段に影響するので、こちらで処理
+            if (_item == Item.Repeat)//もしリピートアイテムだったらレベルを上げる
             {
-                //ここにUIを消す処理
-                //おそらくアップグレードはリストとかで管理すると思う。
-                //なのでリストから削除し、オブジェクトをどこかに保存する処理を行う。
-            }
-            else
-            {
-                _level++;//施設だったらレベルを上げる。
+                _level++;
             }
         }
         else
@@ -65,9 +60,9 @@ public abstract class ShopBase : MonoBehaviour
     /// <summary>購入物の種類</summary>
     public enum Item 
     {
-        /// <summary>アップグレード</summary>
+        /// <summary>買い切りアイテム（現時点でアップグレードが対象）</summary>
         Upgrade,
-        /// <summary>施設、建物</summary>
-        Building,
+        /// <summary>何回も購入するアイテム（現時点で施設が対象）</summary>
+        Repeat,
     }
 }
