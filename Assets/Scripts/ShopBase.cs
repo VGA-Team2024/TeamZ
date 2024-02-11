@@ -1,14 +1,19 @@
 ﻿using System;
 using UnityEngine;
-using UnityEngine.UI;
-/// <summary>施設の基底クラス</summary>
+/// <summary>
+/// 施設の基底クラス
+/// abstractつけた抽象クラスなので
+/// これ単体でオブジェクトにつけられない
+/// </summary>
 public abstract class ShopBase : MonoBehaviour
 {
-    public delegate bool PurchaseEvent(float resouce);
-    PurchaseEvent _method = null;
-
+    [Header("太字説明がついてる物はInspectorでの設定が必須")]
+    [Header("リソースマネージャーを指定")]
+    public ResourceManager _resouce;
+    [Header("購入アイテムの種類")]
     [Tooltip("購入アイテムの種類")]
     public Item _item;
+    [Header("\"購入アイテムの値段（初期値）")]
     [Tooltip("購入アイテムの値段（初期値）")]
     public int _price;
 
@@ -17,13 +22,8 @@ public abstract class ShopBase : MonoBehaviour
     /// <summary>今の値段</summary>
     public float _nowPrice = 0;
 
-    public ResourceManager _resouce;
-
-    //以下は開発用
-    [SerializeField] Text _text;
     private void Start()
     {
-        //_resouceにGetConpornentする処理と、_methodにUseResouceを追加する処理
         _nowPrice = _price;
         ChildStart();
     }
@@ -41,28 +41,28 @@ public abstract class ShopBase : MonoBehaviour
     public void Purchase()
     {
         _nowPrice = (float)(Math.Pow(1.15, _level) * _price);//値段計算。_level == 0なら_priceの値がそのまま入る
-        _method(_nowPrice);//購入処理。戻り値がboolになったらこの後にif分岐を作る。
-
-        //以下は
-
-        ItemProcess();
-        if (_item == Item.Upgrade)//もしアップグレードだったらボタンを押せなくする。
+        bool purchased = _resouce.UseResource(_nowPrice);//購入処理。買えたかどうかを代入
+        if (purchased)
         {
-            //ここにUIを消す処理
-            //おそらくアップグレードはリストとかで管理すると思う。
-            //なのでリストから削除し、オブジェクトをどこかに保存する処理を行う。
+            //アップグレードアイテム等、途中でshopから消えるアイテムは継承先で処理
+            ItemProcess();
+            //施設レベルは値段に影響するので、こちらで処理
+            if (_item == Item.Repeat)//もしリピートアイテムだったらレベルを上げる
+            {
+                _level++;
+            }
         }
         else
         {
-            _level++;//施設だったらレベルを上げる。
+            Debug.Log("購入失敗");
         }
     }
     /// <summary>購入物の種類</summary>
     public enum Item 
     {
-        /// <summary>アップグレード</summary>
+        /// <summary>買い切りアイテム（現時点でアップグレードが対象）</summary>
         Upgrade,
-        /// <summary>施設、建物</summary>
-        Building,
+        /// <summary>何回も購入するアイテム（現時点で施設が対象）</summary>
+        Repeat,
     }
 }
