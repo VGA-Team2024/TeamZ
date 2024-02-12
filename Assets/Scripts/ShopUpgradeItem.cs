@@ -15,23 +15,15 @@ public class ShopUpgradeItem : ShopBase
     ShopBuildingItem shopBuildingItem;
     void Start()
     {
-        if (shopBuildingItemObject != null)
+        if (shopBuildingItemObject)
         {
             shopBuildingItem = shopBuildingItemObject.GetComponent<ShopBuildingItem>();
         }
     }
-    
-    void Update()
-    {
-        if(shopBuildingItemObject == null)
-        {
-            upgradePowerTotalAmount = ((float)_resouce.ResourceTotalAmount/100) * 2;
-        } //全体の2%の数を取得
-    }
 
     public void OnClickUpgradeButton(string Upgrade)
     {
-        if (shopBuildingItemObject != null)
+        if (shopBuildingItemObject)
         {
             _item = Item.Upgrade;//アイテムの判別
             if (_resouce.ResourceTotalAmount >= _price)
@@ -48,8 +40,7 @@ public class ShopUpgradeItem : ShopBase
         }//shopBuildingItemObjectに施設のアイテムが入っていればその施設のアップグレードを行う
         else
         {
-            _resouce.AddEverySecond(upgradePowerTotalAmount);
-            this.gameObject.SetActive(false);//1度使用したら使えないようにする
-        }//shopBuildingItemObjectに何も入っていなければ毎秒のResource増加数を全体の２％増やす
+            Debug.Log("Updateするアイテムが指定されてません");
+        }
     }
 }
