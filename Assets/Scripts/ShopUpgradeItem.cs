@@ -34,11 +34,12 @@ public class ShopUpgradeItem : ShopBase
         if (shopBuildingItemObject != null)
         {
             _item = Item.Upgrade;//アイテムの判別
-            Purchase();//アイテムの支払い
             if (_resouce.ResourceTotalAmount >= _price)
             {
+                Purchase();//アイテムの支払い
                 shopBuildingItem.Upgrade(upgradePowerBuilding);//施設のアップグレード
                 this.gameObject.SetActive(false);//1度使用したら使えないようにする
+                Debug.Log("Upgrade完了");
             }
             else
             {
