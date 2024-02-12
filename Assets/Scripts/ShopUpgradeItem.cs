@@ -10,8 +10,8 @@ public class ShopUpgradeItem : ShopBase
     /// <summary>ShopBuildingItemObjectのアイテムをどれくらいアップデートさせるか</summary>
     [Header("施設のアップグレード倍率")]
     [SerializeField] float upgradePowerBuilding = default;
-    [Header("Resource全体のアップグレード倍率")]
-    [SerializeField] float upgradePowerTotalAmount = default;
+    /// <summary>毎秒のResource増加数全体の2%</summary>
+    float upgradePowerTotalAmount = default;
     ShopBuildingItem shopBuildingItem;
     void Start()
     {

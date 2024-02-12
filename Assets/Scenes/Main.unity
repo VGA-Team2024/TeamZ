@@ -272,12 +272,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _resouce: {fileID: 291366180}
   _item: 0
-  _price: 10
+  _price: 100
   _level: 0
   _nowPrice: 0
   shopBuildingItemObject: {fileID: 1095762171}
-  upgradePowerBuilding: 0
-  upgradePowerTotalAmount: 0
+  upgradePowerBuilding: 2
 --- !u!1 &59214379
 GameObject:
   m_ObjectHideFlags: 0
