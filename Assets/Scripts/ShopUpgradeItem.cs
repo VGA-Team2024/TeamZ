@@ -10,8 +10,8 @@ public class ShopUpgradeItem : ShopBase
     /// <summary>ShopBuildingItemObjectのアイテムをどれくらいアップデートさせるか</summary>
     [Header("施設のアップグレード倍率")]
     [SerializeField] float upgradePowerBuilding = default;
-    [Header("Resource全体のアップグレード倍率")]
-    [SerializeField] float upgradePowerTotalAmount = default;
+    /// <summary>毎秒のResource増加数全体の2%</summary>
+    float upgradePowerTotalAmount = default;
     ShopBuildingItem shopBuildingItem;
     void Start()
     {
@@ -34,11 +34,12 @@ public class ShopUpgradeItem : ShopBase
         if (shopBuildingItemObject != null)
         {
             _item = Item.Upgrade;//アイテムの判別
-            Purchase();//アイテムの支払い
             if (_resouce.ResourceTotalAmount >= _price)
             {
+                Purchase();//アイテムの支払い
                 shopBuildingItem.Upgrade(upgradePowerBuilding);//施設のアップグレード
                 this.gameObject.SetActive(false);//1度使用したら使えないようにする
+                Debug.Log("Upgrade完了");
             }
             else
             {

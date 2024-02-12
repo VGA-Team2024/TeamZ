@@ -135,6 +135,7 @@ GameObject:
   - component: {fileID: 39619786}
   - component: {fileID: 39619785}
   - component: {fileID: 39619784}
+  - component: {fileID: 39619787}
   m_Layer: 0
   m_Name: DoubleUp
   m_TagString: Untagged
@@ -207,16 +208,16 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: 
-        m_MethodName: 
-        m_Mode: 1
+      - m_Target: {fileID: 39619787}
+        m_TargetAssemblyTypeName: ShopUpgradeItem, Assembly-CSharp
+        m_MethodName: OnClickUpgradeButton
+        m_Mode: 5
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: 
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
-          m_StringArgument: 
+          m_StringArgument: Upgrade
           m_BoolArgument: 0
         m_CallState: 2
 --- !u!114 &39619785
@@ -257,6 +258,25 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 39619782}
   m_CullTransparentMesh: 1
+--- !u!114 &39619787
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 39619782}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6b0711b454c2582449600ee2d5747b4e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _resouce: {fileID: 291366180}
+  _item: 0
+  _price: 100
+  _level: 0
+  _nowPrice: 0
+  shopBuildingItemObject: {fileID: 1095762171}
+  upgradePowerBuilding: 2
 --- !u!1 &59214379
 GameObject:
   m_ObjectHideFlags: 0
@@ -544,6 +564,7 @@ GameObject:
   - component: {fileID: 363931758}
   - component: {fileID: 363931757}
   - component: {fileID: 363931756}
+  - component: {fileID: 363931759}
   m_Layer: 0
   m_Name: Grandma
   m_TagString: Untagged
@@ -628,6 +649,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 363931759}
+        m_TargetAssemblyTypeName: ShopBuildingItem, Assembly-CSharp
+        m_MethodName: OnClickBuildingButton
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: Building
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &363931757
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -666,6 +699,26 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 363931754}
   m_CullTransparentMesh: 1
+--- !u!114 &363931759
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 363931754}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a0f465f2d00661e46989bf3268f6b52e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _resouce: {fileID: 291366180}
+  _item: 0
+  _price: 10
+  _level: 0
+  _nowPrice: 0
+  resoursePlus: 10
+  resourceManagerObject: {fileID: 291366179}
+  everySecondPlusResource: 0
 --- !u!1 &376534261
 GameObject:
   m_ObjectHideFlags: 0
@@ -1198,6 +1251,7 @@ GameObject:
   - component: {fileID: 1095762175}
   - component: {fileID: 1095762174}
   - component: {fileID: 1095762173}
+  - component: {fileID: 1095762176}
   m_Layer: 0
   m_Name: Cursor
   m_TagString: Untagged
@@ -1282,6 +1336,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 1095762176}
+        m_TargetAssemblyTypeName: ShopBuildingItem, Assembly-CSharp
+        m_MethodName: OnClickBuildingButton
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: Building
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1095762174
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1320,6 +1386,26 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1095762171}
   m_CullTransparentMesh: 1
+--- !u!114 &1095762176
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1095762171}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a0f465f2d00661e46989bf3268f6b52e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _resouce: {fileID: 291366180}
+  _item: 0
+  _price: 10
+  _level: 0
+  _nowPrice: 0
+  resoursePlus: 10
+  resourceManagerObject: {fileID: 291366179}
+  everySecondPlusResource: 0
 --- !u!1 &1117223381
 GameObject:
   m_ObjectHideFlags: 0
