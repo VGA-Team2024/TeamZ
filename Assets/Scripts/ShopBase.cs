@@ -1,5 +1,7 @@
 ﻿using System;
+using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 /// <summary>
 /// 施設の基底クラス
 /// abstractつけた抽象クラスなので
@@ -13,9 +15,15 @@ public abstract class ShopBase : MonoBehaviour
     [Header("購入アイテムの種類")]
     [Tooltip("購入アイテムの種類")]
     public Item _item;
-    [Header("\"購入アイテムの値段（初期値）")]
+    [Header("購入アイテムの値段（初期値）")]
     [Tooltip("購入アイテムの値段（初期値）")]
     public int _price;
+    [Header("TextMeshProコンポーネントを指定")]
+    [Tooltip("TextMeshProコンポーネントを指定")]
+    [SerializeField] TextMeshProUGUI _tmp;
+    [Header("アイテムの名前")]
+    [Tooltip("アイテムの名前")]
+    public string _text;
 
     /// <summary>購入した施設の所持数</summary>
     public int _level = 0;
@@ -41,6 +49,7 @@ public abstract class ShopBase : MonoBehaviour
     public void Purchase()
     {
         _nowPrice = (float)(Math.Pow(1.15, _level) * _price);//値段計算。_level == 0なら_priceの値がそのまま入る
+
         bool purchased = _resouce.UseResource(_nowPrice);//購入処理。買えたかどうかを代入
         if (purchased)
         {
@@ -50,6 +59,8 @@ public abstract class ShopBase : MonoBehaviour
             if (_item == Item.Repeat)//もしリピートアイテムだったらレベルを上げる
             {
                 _level++;
+                //テキスト処理
+                _tmp.text = _text + "　" + _nowPrice.ToString("F0") + "G";
             }
         }
         else

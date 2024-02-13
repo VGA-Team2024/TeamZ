@@ -273,6 +273,7 @@ MonoBehaviour:
   _resouce: {fileID: 291366180}
   _item: 0
   _price: 100
+  _text: 
   _level: 0
   _nowPrice: 0
   shopBuildingItemObject: {fileID: 1095762171}
@@ -714,6 +715,7 @@ MonoBehaviour:
   _resouce: {fileID: 291366180}
   _item: 0
   _price: 10
+  _text: 
   _level: 0
   _nowPrice: 0
   resoursePlus: 10
@@ -1401,6 +1403,7 @@ MonoBehaviour:
   _resouce: {fileID: 291366180}
   _item: 0
   _price: 10
+  _text: 
   _level: 0
   _nowPrice: 0
   resoursePlus: 10
