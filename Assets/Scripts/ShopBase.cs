@@ -1,4 +1,5 @@
 ﻿using System;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 /// <summary>
@@ -17,10 +18,12 @@ public abstract class ShopBase : MonoBehaviour
     [Header("購入アイテムの値段（初期値）")]
     [Tooltip("購入アイテムの値段（初期値）")]
     public int _price;
+    [Header("TextMeshProコンポーネントを指定")]
+    [Tooltip("TextMeshProコンポーネントを指定")]
+    [SerializeField] TextMeshProUGUI _tmp;
     [Header("アイテムの名前")]
     [Tooltip("アイテムの名前")]
     public string _text;
-
 
     /// <summary>購入した施設の所持数</summary>
     public int _level = 0;
@@ -57,9 +60,7 @@ public abstract class ShopBase : MonoBehaviour
             {
                 _level++;
                 //テキスト処理
-                GameObject child = transform.GetChild(0).gameObject;
-                Text text = child.GetComponent<Text>();
-                text.text = _text + "　" + _nowPrice.ToString("F0") + "G";
+                _tmp.text = _text + "　" + _nowPrice.ToString("F0") + "G";
             }
         }
         else
