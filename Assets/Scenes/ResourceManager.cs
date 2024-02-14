@@ -1,22 +1,22 @@
-using UnityEngine;
+ï»¿using UnityEngine;
 using UnityEngine.UI;
 /// <summary>
-/// ƒŠƒ\[ƒX‚ğŠÇ—
-/// ‘”‚â‰ÁZAŒ¸Z‚·‚éƒƒ\ƒbƒh‚ğ‚Â
-/// ‰ÁZ‚ÉŠÖ‚·‚é•Ï”i2‚ÂjF–ˆ•b‰ÁZ‚·‚é•Ï”EƒNƒŠƒbƒN‚Ì‚½‚Ñ‚É‰ÁZ‚·‚é•Ï”
+/// ãƒªã‚½ãƒ¼ã‚¹ã‚’ç®¡ç†
+/// ç·æ•°ã‚„åŠ ç®—ã€æ¸›ç®—ã™ã‚‹ãƒ¡ã‚½ãƒƒãƒ‰ã‚’æŒã¤
+/// åŠ ç®—ã«é–¢ã™ã‚‹å¤‰æ•°ï¼ˆ2ã¤ï¼‰ï¼šæ¯ç§’åŠ ç®—ã™ã‚‹å¤‰æ•°ãƒ»ã‚¯ãƒªãƒƒã‚¯ã®ãŸã³ã«åŠ ç®—ã™ã‚‹å¤‰æ•°
 /// </summary>
 public class ResourceManager : MonoBehaviour
 {
-    [Tooltip("ƒŠƒ\[ƒXŠÇ—‚ğ‚·‚éƒNƒ‰ƒX‚ÌƒCƒ“ƒXƒ^ƒ“ƒX")] public static ResourceManager Instance = default;
-    [Header("ƒŠƒ\[ƒX‚Ì‘—Ê")]
-    [SerializeField, Tooltip("ƒŠƒ\[ƒX‚Ì‘—Ê")] double _resourceTotalAmount = default;
-    [Header("ƒeƒLƒXƒgiƒŠƒ\[ƒX‚Ì‘—Êj")]
-    [SerializeField, Tooltip("ƒeƒLƒXƒgiƒŠƒ\[ƒX‚Ì‘—Êj")] Text _textRTA = default;
-    [Header("–ˆ•b‰ÁZ‚·‚é‘—Ê")]
-    [SerializeField, Tooltip("–ˆ•b‰ÁZ‚·‚é‘—Ê")] float _addAmountEverySecond = default;
+    [Tooltip("ãƒªã‚½ãƒ¼ã‚¹ç®¡ç†ã‚’ã™ã‚‹ã‚¯ãƒ©ã‚¹ã®ã‚¤ãƒ³ã‚¹ã‚¿ãƒ³ã‚¹")] public static ResourceManager Instance = default;
+    [Header("ãƒªã‚½ãƒ¼ã‚¹ã®ç·é‡")]
+    [SerializeField, Tooltip("ãƒªã‚½ãƒ¼ã‚¹ã®ç·é‡")] double _resourceTotalAmount = default;
+    [Header("ãƒ†ã‚­ã‚¹ãƒˆï¼ˆãƒªã‚½ãƒ¼ã‚¹ã®ç·é‡ï¼‰")]
+    [SerializeField, Tooltip("ãƒ†ã‚­ã‚¹ãƒˆï¼ˆãƒªã‚½ãƒ¼ã‚¹ã®ç·é‡ï¼‰")] Text _textRTA = default;
+    [Header("æ¯ç§’åŠ ç®—ã™ã‚‹ç·é‡")]
+    [SerializeField, Tooltip("æ¯ç§’åŠ ç®—ã™ã‚‹ç·é‡")] float _addAmountEverySecond = default;
 
-    #region ƒvƒƒpƒeƒB
-    /// <summary> ƒŠƒ\[ƒX‚Ì‘—Ê </summary>
+    #region ãƒ—ãƒ­ãƒ‘ãƒ†ã‚£
+    /// <summary> ãƒªã‚½ãƒ¼ã‚¹ã®ç·é‡ </summary>
     public double ResourceTotalAmount { get => _resourceTotalAmount; }
     #endregion
 
@@ -36,13 +36,13 @@ public class ResourceManager : MonoBehaviour
 
     void Update()
     {
-        // ŠÔŒo‰ß‚Æ‚Æ‚à‚É‰ÁZ
+        // æ™‚é–“çµŒéã¨ã¨ã‚‚ã«åŠ ç®—
         _resourceTotalAmount += _addAmountEverySecond * Time.deltaTime;
         _textRTA.text = _resourceTotalAmount.ToString("000,000.0");
     }
 
     /// <summary>
-    /// –ˆ•b‰ÁZ‚·‚é‚Æ‚«‚ÌA‰ÁZ—Ê‚ğ‘‚â‚·ŠÖ”
+    /// æ¯ç§’åŠ ç®—ã™ã‚‹ã¨ãã®ã€åŠ ç®—é‡ã‚’å¢—ã‚„ã™é–¢æ•°
     /// </summary>
     /// <param name="value"></param>
     public void AddEverySecond(float value)
@@ -51,21 +51,21 @@ public class ResourceManager : MonoBehaviour
     }
 
     /// <summary>
-    /// ƒNƒŠƒbƒN‘ÎÛ‚ğƒNƒŠƒbƒN‚·‚é‚Æ‚«‚ÉŒÄ‚Ô
-    /// ƒNƒŠƒbƒN‚Ì‚½‚Ñ‚É‰ÁZ
+    /// ã‚¯ãƒªãƒƒã‚¯å¯¾è±¡ã‚’ã‚¯ãƒªãƒƒã‚¯ã™ã‚‹ã¨ãã«å‘¼ã¶
+    /// ã‚¯ãƒªãƒƒã‚¯ã®ãŸã³ã«åŠ ç®—
     /// </summary>
-    /// <param name="value"> ‰ÁZ‚·‚é—Ê </param>
+    /// <param name="value"> åŠ ç®—ã™ã‚‹é‡ </param>
     public void AddResource(int value)
     {
         _resourceTotalAmount += value;
     }
 
     /// <summary>
-    /// iƒVƒ‡ƒbƒv‚ÅjƒŠƒ\[ƒX‚ğÁ”ï‚·‚éˆ—
-    /// Š‚µ‚Ä‚¢‚éƒŠƒ\[ƒX‚Ì‘—Ê‚ğ’´‚¦‚Ä‚¢‚½‚çA‰½‚à‚µ‚È‚¢
+    /// ï¼ˆã‚·ãƒ§ãƒƒãƒ—ã§ï¼‰ãƒªã‚½ãƒ¼ã‚¹ã‚’æ¶ˆè²»ã™ã‚‹å‡¦ç†
+    /// æ‰€æŒã—ã¦ã„ã‚‹ãƒªã‚½ãƒ¼ã‚¹ã®ç·é‡ã‚’è¶…ãˆã¦ã„ãŸã‚‰ã€ä½•ã‚‚ã—ãªã„
     /// </summary>
-    /// <param name="value">Á”ï—Ê</param>
-    /// <returns>w“ü‚Å‚«‚½‚©</returns>
+    /// <param name="value">æ¶ˆè²»é‡</param>
+    /// <returns>è³¼å…¥ã§ããŸã‹</returns>
     public bool UseResource(float value)
     {
         if (value <= ResourceTotalAmount)
@@ -75,7 +75,7 @@ public class ResourceManager : MonoBehaviour
         }
         else
         {
-            Debug.LogWarning("ƒRƒXƒg‚ªAŠ‚µ‚Ä‚¢‚éƒŠƒ\[ƒX—Ê‚ğ’´‚¦‚Ä‚¢‚Ü‚·B");
+            Debug.LogWarning("ã‚³ã‚¹ãƒˆãŒã€æ‰€æŒã—ã¦ã„ã‚‹ãƒªã‚½ãƒ¼ã‚¹é‡ã‚’è¶…ãˆã¦ã„ã¾ã™ã€‚");
             return false;
         }
     }
