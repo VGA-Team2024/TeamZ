@@ -2,8 +2,6 @@
 
 public class ShopBuildingItem : ShopBase
 {
-    // 注意：このクラスはショップの施設のアイテムに張り付けるつもりで書きました変更点やご不満がある方は野田倫太郎までお申し付けください。
-
     ///<summary>resourseの増加数</summary>
     [SerializeField] public float resoursePlus = default;
     /// <summary>ResourceManagerがついてるObjectを取得する</summary>

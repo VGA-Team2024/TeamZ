@@ -2,8 +2,6 @@
 
 public class ShopUpgradeItem : ShopBase
 {
-    // 注意：このクラスはショップのUpgradeアイテムにくっつけるつもりで書きました変更点やご不満がある方は野田倫太郎までお申し付けください。
-
     /// <summary>Shopにあるアップグレードさせたいアイテムを入れる</summary>
     [Header("アップグレードさせたいObjectを入れてください(Resource全体の増加量を増やしたい場合はnullにしてください）")]
     [SerializeField] GameObject shopBuildingItemObject = null;

@@ -20,7 +20,7 @@ public abstract class ShopBase : MonoBehaviour
     public int _price;
     [Header("TextMeshProコンポーネントを指定")]
     [Tooltip("TextMeshProコンポーネントを指定")]
-    [SerializeField] TextMeshProUGUI _tmp;
+    [SerializeField] TMP_Text _tmp;
     [Header("アイテムの名前")]
     [Tooltip("アイテムの名前")]
     public string _text;
