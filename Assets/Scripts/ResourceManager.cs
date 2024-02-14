@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.UI;
+
 /// <summary>
 /// リソースを管理
 /// 総数や加算、減算するメソッドを持つ
@@ -8,16 +9,27 @@ using UnityEngine.UI;
 public class ResourceManager : MonoBehaviour
 {
     [Tooltip("リソース管理をするクラスのインスタンス")] public static ResourceManager Instance = default;
-    [Header("リソースの総量")]
-    [SerializeField, Tooltip("リソースの総量")] double _resourceTotalAmount = default;
-    [Header("テキスト（リソースの総量）")]
-    [SerializeField, Tooltip("テキスト（リソースの総量）")] Text _textRTA = default;
-    [Header("毎秒加算する総量")]
-    [SerializeField, Tooltip("毎秒加算する総量")] float _addAmountEverySecond = default;
+
+    [Header("リソースの総量")] [SerializeField, Tooltip("リソースの総量")]
+    double _resourceTotalAmount = default;
+
+    [Header("テキスト（リソースの総量）")] [SerializeField, Tooltip("テキスト（リソースの総量）")]
+    Text _textRTA = default;
+
+    [Header("毎秒加算する総量")] [SerializeField, Tooltip("毎秒加算する総量")]
+    float _addAmountEverySecond = default;
+
+    [Header("クリック時の収益の加算量")] [Tooltip("クリック時の収益の加算量")]
+    public int _addAmountOnClick = default;
 
     #region プロパティ
+
     /// <summary> リソースの総量 </summary>
-    public double ResourceTotalAmount { get => _resourceTotalAmount; }
+    public double ResourceTotalAmount
+    {
+        get => _resourceTotalAmount;
+    }
+
     #endregion
 
     void Awake()
@@ -54,10 +66,9 @@ public class ResourceManager : MonoBehaviour
     /// クリック対象をクリックするときに呼ぶ
     /// クリックのたびに加算
     /// </summary>
-    /// <param name="value"> 加算する量 </param>
-    public void AddResource(int value)
+    public void AddResource()
     {
-        _resourceTotalAmount += value;
+        _resourceTotalAmount += _addAmountOnClick;
     }
 
     /// <summary>
