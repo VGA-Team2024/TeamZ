@@ -24,7 +24,7 @@ public class ShopUpgradeItem : ShopBase
         if (shopBuildingItemObject)
         {
             _item = Item.Upgrade;//アイテムの判別
-            if (_resouce.ResourceTotalAmount >= _price)
+            if (_gold.GoldTotalAmount >= _price)
             {
                 Purchase();//アイテムの支払い
                 shopBuildingItem.Upgrade(upgradePowerBuilding);//施設のアップグレード

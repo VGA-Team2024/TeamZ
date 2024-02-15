@@ -10,8 +10,8 @@ using UnityEngine.UI;
 public abstract class ShopBase : MonoBehaviour
 {
     [Header("太字説明がついてる物はInspectorでの設定が必須")]
-    [Header("リソースマネージャーを指定")]
-    public ResourceManager _resouce;
+    [Header("ゴールドマネージャーを指定")]
+    public GoldManager _gold;
     [Header("購入アイテムの種類")]
     [Tooltip("購入アイテムの種類")]
     public Item _item;
@@ -50,7 +50,7 @@ public abstract class ShopBase : MonoBehaviour
     {
         _nowPrice = (float)(Math.Pow(1.15, _level) * _price);//値段計算。_level == 0なら_priceの値がそのまま入る
 
-        bool purchased = _resouce.UseResource(_nowPrice);//購入処理。買えたかどうかを代入
+        bool purchased = _gold.UseGold(_nowPrice);//購入処理。買えたかどうかを代入
         if (purchased)
         {
             //アップグレードアイテム等、途中でshopから消えるアイテムは継承先で処理
