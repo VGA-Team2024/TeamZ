@@ -1,23 +1,23 @@
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.UI;
 /// <summary>
 /// リソースを管理
 /// 総数や加算、減算するメソッドを持つ
 /// 加算に関する変数（2つ）：毎秒加算する変数・クリックのたびに加算する変数
 /// </summary>
-public class ResourceManager : MonoBehaviour
+public class GoldManager : MonoBehaviour
 {
-    [Tooltip("リソース管理をするクラスのインスタンス")] public static ResourceManager Instance = default;
-    [Header("リソースの総量")]
-    [SerializeField, Tooltip("リソースの総量")] double _resourceTotalAmount = default;
-    [Header("テキスト（リソースの総量）")]
-    [SerializeField, Tooltip("テキスト（リソースの総量）")] Text _textRTA = default;
+    [Tooltip("リソース管理をするクラスのインスタンス")] public static GoldManager Instance = default;
+    [Header("ゴールドの総量")]
+    [SerializeField, Tooltip("ゴールドの総量")] double _goldTotalAmount = default;
+    [Header("テキスト（ゴールドの総量）")]
+    [SerializeField, Tooltip("テキスト（ゴールドの総量）")] Text _textRTA = default;
     [Header("毎秒加算する総量")]
     [SerializeField, Tooltip("毎秒加算する総量")] float _addAmountEverySecond = default;
 
     #region プロパティ
     /// <summary> リソースの総量 </summary>
-    public double ResourceTotalAmount { get => _resourceTotalAmount; }
+    public double GoldTotalAmount { get => _goldTotalAmount; }
     #endregion
 
     void Awake()
@@ -30,15 +30,15 @@ public class ResourceManager : MonoBehaviour
 
     void Start()
     {
-        _resourceTotalAmount = 0;
+        _goldTotalAmount = 0;
         _addAmountEverySecond = 0;
     }
 
     void Update()
     {
         // 時間経過とともに加算
-        _resourceTotalAmount += _addAmountEverySecond * Time.deltaTime;
-        _textRTA.text = _resourceTotalAmount.ToString("000,000.0");
+        _goldTotalAmount += _addAmountEverySecond * Time.deltaTime;
+        _textRTA.text = _goldTotalAmount.ToString("000,000.0");
     }
 
     /// <summary>
@@ -55,22 +55,22 @@ public class ResourceManager : MonoBehaviour
     /// クリックのたびに加算
     /// </summary>
     /// <param name="value"> 加算する量 </param>
-    public void AddResource(int value)
+    public void AddGold(int value)
     {
-        _resourceTotalAmount += value;
+        _goldTotalAmount += value;
     }
 
     /// <summary>
-    /// （ショップで）リソースを消費する処理
-    /// 所持しているリソースの総量を超えていたら、何もしない
+    /// （ショップで）ゴールドを消費する処理
+    /// 所持しているゴールドの総量を超えていたら、何もしない
     /// </summary>
     /// <param name="value">消費量</param>
     /// <returns>購入できたか</returns>
-    public bool UseResource(float value)
+    public bool UseGold(float value)
     {
-        if (value <= ResourceTotalAmount)
+        if (value <= GoldTotalAmount)
         {
-            _resourceTotalAmount -= value;
+            _goldTotalAmount -= value;
             return true;
         }
         else
