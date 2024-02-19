@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
 /// <summary>
-/// リソースを管理
+/// ゴールドを管理
 /// 総数や加算、減算するメソッドを持つ
 /// 加算に関する変数（2つ）：毎秒加算する変数・クリックのたびに加算する変数
 /// </summary>
@@ -14,6 +14,8 @@ public class GoldManager : MonoBehaviour
     [SerializeField, Tooltip("テキスト（ゴールドの総量）")] Text _textRTA = default;
     [Header("毎秒加算する総量")]
     [SerializeField, Tooltip("毎秒加算する総量")] float _addAmountEverySecond = default;
+    [Header("敵のHPの総量")]
+    [SerializeField, Tooltip("敵のHPの総量")] double _enemyHpTotalAmount = default;
 
     #region プロパティ
     /// <summary> リソースの総量 </summary>
@@ -37,7 +39,7 @@ public class GoldManager : MonoBehaviour
     void Update()
     {
         // 時間経過とともに加算
-        _goldTotalAmount += _addAmountEverySecond * Time.deltaTime;
+        //_goldTotalAmount += _addAmountEverySecond * Time.deltaTime;
         _textRTA.text = _goldTotalAmount.ToString("000,000.0");
     }
 
@@ -52,12 +54,12 @@ public class GoldManager : MonoBehaviour
 
     /// <summary>
     /// クリック対象をクリックするときに呼ぶ
-    /// クリックのたびに加算
+    /// クリックのたびに敵のHPを減算
     /// </summary>
-    /// <param name="value"> 加算する量 </param>
-    public void AddGold(int value)
+    /// <param name="value"> 減算する量 </param>
+    public void SubtractHp(int value)
     {
-        _goldTotalAmount += value;
+        _enemyHpTotalAmount -= value;
     }
 
     /// <summary>
