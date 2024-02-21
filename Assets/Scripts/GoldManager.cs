@@ -15,7 +15,7 @@ public class GoldManager : MonoBehaviour
     [Header("10秒ごとに増えるGold")]
     [SerializeField, Tooltip("10秒ごとに増えるGold")] float _addAmountEverySecond = default;
     [Header("ボスを倒すときに獲得できるGold")]
-    [SerializeField, Tooltip("ボスを倒したときに獲得できるGold")] double _obtainGold = default;
+    [SerializeField, Tooltip("ボスを倒したときに獲得できるGold")] public double _obtainGold = default;
     int _timer;
 
     #region プロパティ
@@ -54,12 +54,11 @@ public class GoldManager : MonoBehaviour
     }
 
     /// <summary>
-    /// 敵が倒れたときに増えるGold
+    /// 敵を倒したときに獲得できるGold
     /// </summary>
     /// <param name="value">現在のフロア</param>>
-    public void AddGold(int value)
+    public void DropGold(int value)
     {
-        _obtainGold = 0;
         if (value <= 5)
             _obtainGold = 10000 * value;
         else if (value <= 10)
@@ -72,7 +71,12 @@ public class GoldManager : MonoBehaviour
             _obtainGold = 5000000000 * (value - 20);
         else
             _obtainGold = 1000000000000 * (value - 25);
-
+    }
+    /// <summary>
+    /// 敵が倒れたときに増えるGold
+    /// </summary>
+    public void AddGold()
+    {
         _goldTotalAmount += _obtainGold;
     }
 
