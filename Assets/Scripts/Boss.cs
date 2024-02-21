@@ -10,7 +10,7 @@ public class Boss : MonoBehaviour
 {
     [Tooltip("敵のHPの管理をするクラスのインスタンス")] public static Boss Instance = default;
     [Header("NPCが与えるダメージ")]
-    [SerializeField, Tooltip("NPCが与えるダメージ")] float _subtractHpEverySecond = default;
+    [SerializeField, Tooltip("NPCが与えるダメージ")] public float _subtractHpEverySecond = default;
     [Header("敵のHPの総量")]
     [SerializeField, Tooltip("敵のHPの総量")] double _enemyHpTotalAmount = default;
     [Header("現在のフロア")]
@@ -81,6 +81,7 @@ public class Boss : MonoBehaviour
     {
         _currentFloor++;
         Instantiate(_enemyPrefab, _bossPos, Quaternion.identity);
+        _gold.DropGold(_currentFloor);
     }
 
     /// <summary>
@@ -89,7 +90,7 @@ public class Boss : MonoBehaviour
     public void EnemyDefeat()
     {
         Destroy(_enemyPrefab);
-        _gold.AddGold(_currentFloor);
+        _gold.AddGold();
     }
 
 }
