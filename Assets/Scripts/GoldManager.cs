@@ -7,15 +7,14 @@ using UnityEngine.UI;
 /// </summary>
 public class GoldManager : MonoBehaviour
 {
-    [Tooltip("リソース管理をするクラスのインスタンス")] public static GoldManager Instance = default;
+    [Tooltip("ゴールド管理をするクラスのインスタンス")] public static GoldManager Instance = default;
     [Header("ゴールドの総量")]
     [SerializeField, Tooltip("ゴールドの総量")] double _goldTotalAmount = default;
     [Header("テキスト（ゴールドの総量）")]
-    [SerializeField, Tooltip("テキスト（ゴールドの総量）")] Text _textRTA = default;
-    [Header("毎秒加算する総量")]
-    [SerializeField, Tooltip("毎秒加算する総量")] float _addAmountEverySecond = default;
-    [Header("敵のHPの総量")]
-    [SerializeField, Tooltip("敵のHPの総量")] double _enemyHpTotalAmount = default;
+    [SerializeField, Tooltip("テキスト（ゴールドの総量）")] Text _textGTA = default;
+    [Header("10秒ごとに増えるGold")]
+    [SerializeField, Tooltip("10秒ごとに増えるGold")] float _addAmountEverySecond = default;
+    int _timer;
 
     #region プロパティ
     /// <summary> リソースの総量 </summary>
@@ -32,34 +31,56 @@ public class GoldManager : MonoBehaviour
 
     void Start()
     {
-        _goldTotalAmount = 0;
+        _goldTotalAmount = 10000;
         _addAmountEverySecond = 0;
     }
 
     void Update()
     {
-        // 時間経過とともに加算
-        //_goldTotalAmount += _addAmountEverySecond * Time.deltaTime;
-        _textRTA.text = _goldTotalAmount.ToString("000,000.0");
+        _textGTA.text = _goldTotalAmount.ToString("000,000.0");
+    }
+
+    private void FixedUpdate()
+    {
+        _timer += (int)Time.deltaTime;
+        // 10秒に一回呼び出す
+        if (_timer >= 500)
+        {
+           _goldTotalAmount += _addAmountEverySecond;
+            _timer = 0;
+        }
     }
 
     /// <summary>
-    /// 毎秒加算するときの、加算量を増やす関数
+    /// 敵が倒れたときに増えるGold
+    /// </summary>
+    /// <param name="value">現在のフロア</param>>
+    public void AddGold(int value)
+    {
+        double _obtainGold = 0;
+        if (value <= 5)
+            _obtainGold = 10000 * value;
+        else if (value <= 10)
+            _obtainGold = 100000 * (value - 5);
+        else if (value <= 15)
+            _obtainGold = 500000 * (value - 10);
+        else if (value <= 20)
+            _obtainGold = 10000000 * (value - 15);
+        else if (value <= 25)
+            _obtainGold = 5000000000 * (value - 20);
+        else
+            _obtainGold = 1000000000000 * (value - 25);
+
+        _goldTotalAmount += _obtainGold;
+    }
+
+    /// <summary>
+    /// 10秒ごとに増加するGoldを増やす関数
     /// </summary>
     /// <param name="value"></param>
     public void AddEverySecond(float value)
     {
         _addAmountEverySecond += value;
-    }
-
-    /// <summary>
-    /// クリック対象をクリックするときに呼ぶ
-    /// クリックのたびに敵のHPを減算
-    /// </summary>
-    /// <param name="value"> 減算する量 </param>
-    public void SubtractHp(int value)
-    {
-        _enemyHpTotalAmount -= value;
     }
 
     /// <summary>
@@ -77,7 +98,6 @@ public class GoldManager : MonoBehaviour
         }
         else
         {
-            Debug.LogWarning("コストが、所持しているリソース量を超えています。");
             return false;
         }
     }
