@@ -12,8 +12,8 @@ public class PassiveSkill : MonoBehaviour
     void Start()
     {
         _npcLevel = _npcBase._level;
-        //_bossGold = _goldManager._obtainGold;
-       //_damage = _boss._subtractHpEverySecond;
+        _bossGold = _goldManager._obtainGold;
+       _damage = _boss._subtractHpEverySecond;
     }
     public enum CharacterType
     {
