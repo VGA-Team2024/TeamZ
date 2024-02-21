@@ -25,15 +25,15 @@ public class PassiveSkill : MonoBehaviour
     }
 
     public CharacterType characterType;
-    public int goldCost;
-    public float damageMultiplier;
-    public int levelRequirement;
+    public int _goldCost;
+    public float _damageMultiplier;
+    public int _levelRequirement;
 
     public void UseSkill()
     {
 
         // レベル要件をチェック
-        if (_npcLevel < levelRequirement)
+        if (_npcLevel < _levelRequirement)
         {
             Debug.Log("Insufficient level to use this skill.");
             return;
