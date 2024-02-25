@@ -12,17 +12,17 @@ public abstract class NpcBase : MonoBehaviour
     [Header("太字説明がついてる物はInspectorでの設定が必須")]
     [Header("ゴールドマネージャーを指定")]
     public GoldManager _gold;
-    [Header("購入アイテムの種類")]
-    [Tooltip("購入アイテムの種類")]
+    [Header("NPCの種類")]
+    [Tooltip("NPCの種類")]
     public Npc _npc;
-    [Header("購入アイテムの値段（初期値）")]
-    [Tooltip("購入アイテムの値段（初期値）")]
+    [Header("購入NPCの値段（初期値）")]
+    [Tooltip("購入NPCの値段（初期値）")]
     public int _price;
     [Header("TextMeshProコンポーネントを指定")]
     [Tooltip("TextMeshProコンポーネントを指定")]
     [SerializeField] TMP_Text _tmp;
-    [Header("アイテムの名前")]
-    [Tooltip("アイテムの名前")]
+    [Header("NPCの名前")]
+    [Tooltip("NPCの名前")]
     public string _text;
 
     /// <summary>購入したNPCの所持数</summary>

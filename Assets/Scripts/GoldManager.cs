@@ -9,7 +9,7 @@ public class GoldManager : MonoBehaviour
 {
     [Tooltip("ゴールド管理をするクラスのインスタンス")] public static GoldManager Instance = default;
     [Header("ゴールドの総量")]
-    [SerializeField, Tooltip("ゴールドの総量")] double _goldTotalAmount = default;
+    [SerializeField, Tooltip("ゴールドの総量")] public double _goldTotalAmount = default;
     [Header("テキスト（ゴールドの総量）")]
     [SerializeField, Tooltip("テキスト（ゴールドの総量）")] Text _textGTA = default;
     [Header("10秒ごとに増えるGold")]
