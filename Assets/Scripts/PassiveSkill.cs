@@ -60,7 +60,7 @@ public class PassiveSkill : MonoBehaviour
 
     void MagePassive()
     {
-        _boss.SubtractHpEverySecond(Mathf.Pow(_inflictDamage * 1.25f, _npcLevel - 1));
+        _boss._subtractHpEverySecond = Mathf.Pow(_inflictDamage * 1.25f, _npcLevel - 1);
     }
 
     void ThiefPassive()
@@ -77,5 +77,6 @@ public class PassiveSkill : MonoBehaviour
     void BardPassive()
     {
         // 例えば、NPCの効果を2倍にする処理をここに記述する
+        
     }
 }
