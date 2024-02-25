@@ -12,7 +12,7 @@ public class Boss : MonoBehaviour
     [Header("NPCが与えるダメージ")]
     [SerializeField, Tooltip("NPCが与えるダメージ")] public float _subtractHpEverySecond = default;
     [Header("敵のHPの総量")]
-    [SerializeField, Tooltip("敵のHPの総量")] double _enemyHpTotalAmount = default;
+    [SerializeField, Tooltip("敵のHPの総量")] public double _enemyHpTotalAmount = default;
     [Header("現在のフロア")]
     [SerializeField, Tooltip("現在のフロア")] int _currentFloor = default;
     int _timer;

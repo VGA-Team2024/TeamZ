@@ -2,18 +2,21 @@
 
 public class PassiveSkill : MonoBehaviour
 {
+    [Header("NPCの種類")]
+    [Tooltip("NPCの種類")]
+    public CharacterType characterType;
     public NpcBase _npcBase;
     public Boss _boss;
     public GoldManager _goldManager;
-    public int _npcLevel;
-    public double _bossGold;
-    public float _damage;
+    int _npcLevel;
+    double _stealGold;
+    float _inflictDamage;
 
-    void Start()
+    private void Update()
     {
         _npcLevel = _npcBase._level;
-        //_bossGold = _goldManager._obtainGold;
-       //_damage = _boss._subtractHpEverySecond;
+        _stealGold = _goldManager._obtainGold;
+        _inflictDamage = _boss._subtractHpEverySecond;
     }
     public enum CharacterType
     {
@@ -24,21 +27,8 @@ public class PassiveSkill : MonoBehaviour
         Bard
     }
 
-    public CharacterType characterType;
-    public int goldCost;
-    public float damageMultiplier;
-    public int levelRequirement;
-
     public void UseSkill()
     {
-
-        // レベル要件をチェック
-        if (_npcLevel < levelRequirement)
-        {
-            Debug.Log("Insufficient level to use this skill.");
-            return;
-        }
-
         // スキルの種類に応じて処理を実行
         switch (characterType)
         {
@@ -65,27 +55,27 @@ public class PassiveSkill : MonoBehaviour
 
     void WarriorPassive()
     {
-        _boss.SubtractHpEverySecond(Mathf.Pow(1.25f, _npcLevel - 1));
+        _boss.SubtractHpEverySecond(Mathf.Pow(_inflictDamage * 1.25f, _npcLevel - 1));
     }
 
     void MagePassive()
     {
-        _boss.SubtractHpEverySecond(Mathf.Pow(1.25f, _npcLevel - 1));
+        _boss.SubtractHpEverySecond(Mathf.Pow(_inflictDamage * 1.25f, _npcLevel - 1));
     }
 
     void ThiefPassive()
     {
-      _goldManager.AddEverySecond(((float)_bossGold * 0.0001f) * _npcLevel);
+      _goldManager.AddEverySecond(((float)_stealGold * 0.0001f) * _npcLevel);
     }
 
     void HermitPassive()
     {
+        UseSkill();
         Debug.Log("Skill unlocked!");
     }
 
     void BardPassive()
     {
         // 例えば、NPCの効果を2倍にする処理をここに記述する
-        Debug.Log("NPC effects modified.");
     }
 }
