@@ -10,6 +10,14 @@ public class HermitSkill : NpcBase
     double _bossHp;
     double _stealGold;
     double _totalGold;
+
+    private void Start()
+    {
+        _damage = _boss._subtractHpEverySecond;
+        _stealGold = _gold._obtainGold;
+        _totalGold = _gold._goldTotalAmount;
+        _bossHp = _boss._enemyHpTotalAmount;
+    }
     private void Update()
     {
         _damage = _boss._subtractHpEverySecond;

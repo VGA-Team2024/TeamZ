@@ -12,6 +12,12 @@ public class PassiveSkill : MonoBehaviour
     double _stealGold;
     float _inflictDamage;
 
+    private void Start()
+    {
+        _npcLevel = _npcBase._level;
+        _stealGold = _goldManager._obtainGold;
+        _inflictDamage = _boss._subtractHpEverySecond;
+    }
     private void Update()
     {
         _npcLevel = _npcBase._level;
@@ -77,6 +83,5 @@ public class PassiveSkill : MonoBehaviour
     void BardPassive()
     {
         // 例えば、NPCの効果を2倍にする処理をここに記述する
-        
     }
 }
