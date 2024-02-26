@@ -12,6 +12,12 @@ public class PassiveSkill : MonoBehaviour
     double _stealGold;
     float _inflictDamage;
 
+    private void Start()
+    {
+        _npcLevel = _npcBase._level;
+        _stealGold = _goldManager._obtainGold;
+        _inflictDamage = _boss._subtractHpEverySecond;
+    }
     private void Update()
     {
         _npcLevel = _npcBase._level;
@@ -60,7 +66,7 @@ public class PassiveSkill : MonoBehaviour
 
     void MagePassive()
     {
-        _boss.SubtractHpEverySecond(Mathf.Pow(_inflictDamage * 1.25f, _npcLevel - 1));
+        _boss._subtractHpEverySecond = Mathf.Pow(_inflictDamage * 1.25f, _npcLevel - 1);
     }
 
     void ThiefPassive()
