@@ -62,15 +62,15 @@ public class GoldManager : MonoBehaviour
         if (value <= 5)
             _obtainGold = 10000 * value;
         else if (value <= 10)
-            _obtainGold = 100000 * (value - 5);
+            _obtainGold = 100000 * value;
         else if (value <= 15)
-            _obtainGold = 500000 * (value - 10);
+            _obtainGold = 500000 * value;
         else if (value <= 20)
-            _obtainGold = 10000000 * (value - 15);
+            _obtainGold = 10000000 * value;
         else if (value <= 25)
-            _obtainGold = 5000000000 * (value - 20);
+            _obtainGold = 5000000000 * value;
         else
-            _obtainGold = 1000000000000 * (value - 25);
+            _obtainGold = 1000000000000 * value;
     }
     /// <summary>
     /// 敵が倒れたときに増えるGold

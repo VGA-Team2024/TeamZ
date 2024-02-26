@@ -1,10 +1,10 @@
 ﻿using System.Collections;
-using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.UI;
 
 /// <summary>
 /// 敵のHPの管理
+/// 敵の出現、消滅もここでやります
 /// </summary>
 public class Boss : MonoBehaviour
 {
@@ -15,11 +15,15 @@ public class Boss : MonoBehaviour
     [SerializeField, Tooltip("敵のHPの総量")] public double _enemyHpTotalAmount = default;
     [Header("現在のフロア")]
     [SerializeField, Tooltip("現在のフロア")] int _currentFloor = default;
+    [Header("現在のベースフロア")]
+    [SerializeField, Tooltip("現在のベースフロア")] int _baseFloor = default;
+    [Header("敵のprefabの配列")]
+    [SerializeField, Tooltip("敵のprefabの配列")] GameObject[] _enemyList = default;
+    [SerializeField, Tooltip("呼び出す敵のprefab")] public int _currentEnemy = default;
+    [Header("テキスト（敵のHP）")]
+    [SerializeField, Tooltip("テキスト（敵のHP）")] Text _bossHpText = default;
     int _timer;
     public GoldManager _gold;
-    [Header("敵のprefab")]
-    [SerializeField, Tooltip("敵のprefab")] GameObject _enemyPrefab = default;
-    [Tooltip("子オブジェクトでボスの出現位置を決める")] Vector3 _bossPos;
 
     private void Awake()
     {
@@ -30,17 +34,28 @@ public class Boss : MonoBehaviour
     private void Start()
     {
         _currentFloor = 0;
+        _baseFloor = 0;
+        _currentEnemy = -1;
         _subtractHpEverySecond = 0;
-        _bossPos = transform.GetChild(0).transform.position;
         EnemyAppear();
     }
 
     private void Update()
     {
+        _bossHpText.text = _enemyHpTotalAmount.ToString();
+        Debug.Log(_enemyHpTotalAmount);
         if (_enemyHpTotalAmount <= 0)
         {
-            EnemyDefeat();
-            EnemyAppear();
+            if (_currentFloor != 31)
+            {
+                // 敵が消えてから数秒後に出現
+                StartCoroutine(Coroutine());
+            }
+            else
+            {
+                EnemyDefeat();
+                Debug.Log("GameClear");
+            }
         }
     }
 
@@ -80,8 +95,34 @@ public class Boss : MonoBehaviour
     public void EnemyAppear()
     {
         _currentFloor++;
-        Instantiate(_enemyPrefab, _bossPos, Quaternion.identity);
+        if (_currentFloor % 5 == 1) // 現在のフロアがベースフロア(1,6,11,16,21,26)になったときにベースフロアを更新
+        {
+            _baseFloor = _currentFloor;
+            _currentEnemy++; // 呼び出す敵のindexも更新
+        }
+        _enemyList[_currentEnemy].gameObject.SetActive(true);
         _gold.DropGold(_currentFloor);
+        switch (_baseFloor) // ボスのHPの計算
+        {
+            case 1:
+                _enemyHpTotalAmount = 100 * _currentFloor;
+                break;
+            case 6:
+                _enemyHpTotalAmount = 1000 * (double)Mathf.Pow(1.5f, (_currentFloor - 6));
+                break;
+            case 11:
+                _enemyHpTotalAmount = 10000 * Mathf.Pow(2, (_currentFloor - 11));
+                break;
+            case 16:
+                _enemyHpTotalAmount = 250000 * Mathf.Pow(2, (_currentFloor - 16));
+                break;
+            case 21:
+                _enemyHpTotalAmount = 50000000 * Mathf.Pow(2, (_currentFloor - 21));
+                break;
+            case 26:
+                _enemyHpTotalAmount = 1000000000 * Mathf.Pow(10, (_currentFloor - 26));
+                break;
+        }
     }
 
     /// <summary>
@@ -89,8 +130,18 @@ public class Boss : MonoBehaviour
     /// </summary>
     public void EnemyDefeat()
     {
-        Destroy(_enemyPrefab);
+        _enemyList[_currentEnemy].gameObject.SetActive(false);
         _gold.AddGold();
     }
 
+    /// <summary>
+    /// 敵が倒れた後1秒後に敵が出現します
+    /// </summary>
+    /// <returns></returns>
+    IEnumerator Coroutine()
+    {
+        EnemyDefeat();
+        yield return new WaitForSeconds(1);
+        EnemyAppear();
+    }
 }
