@@ -4,30 +4,30 @@ public class SkillUpgrade : NpcBase
 {
     /// <summary>Shopにあるアップグレードさせたいアイテムを入れる</summary>
     [Header("アップグレードさせたいObjectを入れてください(Resource全体の増加量を増やしたい場合はnullにしてください）")]
-    [SerializeField] GameObject NpcSkillUpgradeObject = null;
+    [SerializeField] GameObject _npcSkillUpgradeObject = null;
     /// <summary>ShopBuildingItemObjectのアイテムをどれくらいアップデートさせるか</summary>
     [Header("施設のアップグレード倍率")]
-    [SerializeField] float upgradePowerBuilding = default;
+    [SerializeField] float _upgradePowerBuilding = default;
     /// <summary>毎秒のResource増加数全体の2%</summary>
-    float upgradePowerTotalAmount = default;
-    Skill skillUpgrade;
+    float _upgradePowerTotalAmount = default;
+    Skill _skillUpgrade;
     void Start()
     {
-        if (NpcSkillUpgradeObject)
+        if (_npcSkillUpgradeObject)
         {
-            skillUpgrade = NpcSkillUpgradeObject.GetComponent<Skill>();
+            _skillUpgrade = _npcSkillUpgradeObject.GetComponent<Skill>();
         }
     }
 
     public void OnClickUpgradeButton(string Upgrade)
     {
-        if (NpcSkillUpgradeObject)
+        if (_npcSkillUpgradeObject)
         {
             _npc = Npc.Upgrade;//アイテムの判別
             if (_gold.GoldTotalAmount >= _price)
             {
                 Purchase();//アイテムの支払い
-                skillUpgrade.Upgrade(upgradePowerBuilding);//Skillのアップグレード
+                _skillUpgrade.Upgrade(_upgradePowerBuilding);//Skillのアップグレード
                 this.gameObject.SetActive(false);//1度使用したら使えないようにする
                 Debug.Log("Upgrade完了");
             }
