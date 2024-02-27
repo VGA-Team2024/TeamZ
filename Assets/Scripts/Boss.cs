@@ -1,14 +1,14 @@
 ﻿using System.Collections;
 using UnityEngine;
-using UnityEngine.UI;
+using TMPro;
 
 /// <summary>
 /// 敵のHPの管理
-/// 敵の出現、消滅もここでやります
+/// 敵の出現、消滅
 /// </summary>
 public class Boss : MonoBehaviour
 {
-    [Tooltip("敵のHPの管理をするクラスのインスタンス")] public static Boss Instance = default;
+    [Tooltip("敵のHPの管理をするクラスのインスタンス")] private static Boss Instance = default;
     [Header("NPCが与えるダメージ")]
     [SerializeField, Tooltip("NPCが与えるダメージ")] public float _subtractHpEverySecond = default;
     [Header("敵のHPの総量")]
@@ -21,8 +21,8 @@ public class Boss : MonoBehaviour
     [SerializeField, Tooltip("敵のprefabの配列")] GameObject[] _enemyList = default;
     [SerializeField, Tooltip("呼び出す敵のprefab")] public int _currentEnemy = default;
     [Header("テキスト（敵のHP）")]
-    [SerializeField, Tooltip("テキスト（敵のHP）")] Text _bossHpText = default;
-    int _timer;
+    [SerializeField, Tooltip("テキスト（敵のHP）")] TMP_Text _bossHpText = default;
+    public int _timer;
     public GoldManager _gold;
 
     private void Awake()
@@ -128,7 +128,7 @@ public class Boss : MonoBehaviour
     /// <summary>
     /// 敵が倒れたとき
     /// </summary>
-    public void EnemyDefeat()
+    private void EnemyDefeat()
     {
         _enemyList[_currentEnemy].gameObject.SetActive(false);
         _gold.AddGold();

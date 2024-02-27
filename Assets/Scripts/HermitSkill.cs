@@ -1,19 +1,19 @@
-﻿using Unity.VisualScripting;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class HermitSkill : NpcBase
 {
-    [Header("Skillの種類")]
-    [Tooltip("Skillの種類")]
-    public SkillType skillType;
+    [Header("Skillの種類")] [Tooltip("Skillの種類")]
+    public SkillType _skillType;
     public Boss _boss;
+    
     float _damage;
     double _bossHp;
     double _stealGold;
     double _totalGold;
+    
     public float _cooldown;
-    private float _lastUsedTime;
-
+    float _lastUsedTime;
+    
     private void Start()
     {
         _damage = _boss._subtractHpEverySecond;
@@ -21,6 +21,7 @@ public class HermitSkill : NpcBase
         _totalGold = _gold._goldTotalAmount;
         _bossHp = _boss._enemyHpTotalAmount;
     }
+
     private void Update()
     {
         _damage = _boss._subtractHpEverySecond;
@@ -28,6 +29,7 @@ public class HermitSkill : NpcBase
         _totalGold = _gold._goldTotalAmount;
         _bossHp = _boss._enemyHpTotalAmount;
     }
+
     public enum SkillType
     {
         Smash,
@@ -37,31 +39,35 @@ public class HermitSkill : NpcBase
 
     public void UseSkill()
     {
-        switch (skillType)
+        switch (_skillType)
         {
             case SkillType.Destroy:
-                if(1000 < _level)
+                if (1000 < _items)
                 {
                     CheckCoolDowon();
                     _bossHp = 0;
                 }
+
                 break;
             case SkillType.Steel:
-                if(100 < _level)
+                if (100 < _items)
                 {
                     CheckCoolDowon();
                     _totalGold += _stealGold * 10;
                 }
+
                 break;
             case SkillType.Smash:
-                if(0 < _level)
+                if (0 < _items)
                 {
                     CheckCoolDowon();
                     _boss.SubtractHp((int)_damage * 10);
                 }
+
                 break;
         }
     }
+
     private void CheckCoolDowon()
     {
         // スキルのクールダウンをチェック

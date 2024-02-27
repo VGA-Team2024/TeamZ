@@ -14,13 +14,13 @@ public class PassiveSkill : MonoBehaviour
 
     private void Start()
     {
-        _npcLevel = _npcBase._level;
+        _npcLevel = _npcBase._items;
         _stealGold = _goldManager._obtainGold;
         _inflictDamage = _boss._subtractHpEverySecond;
     }
     private void Update()
     {
-        _npcLevel = _npcBase._level;
+        _npcLevel = _npcBase._items;
         _stealGold = _goldManager._obtainGold;
         _inflictDamage = _boss._subtractHpEverySecond;
     }

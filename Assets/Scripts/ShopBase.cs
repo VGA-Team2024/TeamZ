@@ -1,7 +1,6 @@
 ﻿using System;
 using TMPro;
 using UnityEngine;
-using UnityEngine.UI;
 /// <summary>
 /// 施設の基底クラス
 /// abstractつけた抽象クラスなので

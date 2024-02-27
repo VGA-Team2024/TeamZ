@@ -1,5 +1,5 @@
 ﻿using UnityEngine;
-using UnityEngine.UI;
+using TMPro;
 /// <summary>
 /// ゴールドを管理
 /// 総数や加算、減算するメソッドを持つ
@@ -11,16 +11,16 @@ public class GoldManager : MonoBehaviour
     [Header("ゴールドの総量")]
     [SerializeField, Tooltip("ゴールドの総量")] public double _goldTotalAmount = default;
     [Header("テキスト（ゴールドの総量）")]
-    [SerializeField, Tooltip("テキスト（ゴールドの総量）")] Text _textGTA = default;
+    [SerializeField, Tooltip("テキスト（ゴールドの総量）")] TMP_Text _textGTA = default;
     [Header("10秒ごとに増えるGold")]
     [SerializeField, Tooltip("10秒ごとに増えるGold")] float _addAmountEverySecond = default;
     [Header("ボスを倒すときに獲得できるGold")]
     [SerializeField, Tooltip("ボスを倒したときに獲得できるGold")] public double _obtainGold = default;
-    int _timer;
+    private int _timer;
 
     #region プロパティ
     /// <summary> リソースの総量 </summary>
-    public double GoldTotalAmount { get => _goldTotalAmount; }
+    public double GoldTotalAmount  => _goldTotalAmount; 
     #endregion
 
     void Awake()
