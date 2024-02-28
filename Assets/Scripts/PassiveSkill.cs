@@ -1,30 +1,26 @@
 ﻿using UnityEngine;
 
-public class PassiveSkill : MonoBehaviour
+public class PassiveSkill : Boss
 {
     [Header("NPCの種類")] [Tooltip("NPCの種類")] 
     public CharacterType _characterType;
 
     public NpcBase _npcBase;
-    public Boss _boss;
     public GoldManager _goldManager;
 
     private int _npcItems;
     private double _stealGold;
-    private float _inflictDamage;
 
     private void Start()
     {
         _npcItems = _npcBase._items;
         _stealGold = _goldManager._obtainGold;
-        _inflictDamage = _boss._subtractHpEverySecond;
     }
 
     private void Update()
     {
         _npcItems = _npcBase._items;
         _stealGold = _goldManager._obtainGold;
-        _inflictDamage = _boss._subtractHpEverySecond;
     }
 
     public enum CharacterType
@@ -64,13 +60,13 @@ public class PassiveSkill : MonoBehaviour
 
     void WarriorPassive()
     {
-        _boss.SubtractHpEverySecond(Mathf.Pow(_inflictDamage * 1.25f, _npcItems - 1));
-        Debug.Log(_inflictDamage);
+        SubtractHpEverySecond(Mathf.Pow(_subtractHpEverySecond * 1.25f, _npcItems - 1));
+        Debug.Log(_subtractHpEverySecond);
     }
 
     void MagePassive()
     {
-        _boss._subtractHpEverySecond = Mathf.Pow(_inflictDamage * 1.25f, _npcItems - 1);
+        _subtractHpEverySecond = Mathf.Pow(_subtractHpEverySecond * 1.25f, _npcItems - 1);
     }
 
     void ThiefPassive()
