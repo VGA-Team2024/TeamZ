@@ -45,7 +45,6 @@ public class Boss : MonoBehaviour
         _currentFloor = 0;
         _baseFloor = 0;
         _currentEnemy = -1;
-        _subtractHpEverySecond = 0;
         EnemyAppear();
     }
 
