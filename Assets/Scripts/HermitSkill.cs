@@ -6,7 +6,7 @@ public class HermitSkill : NpcBase
     public SkillType _skillType;
     public Boss _boss;
     
-    float _damage;
+    double _damage;
     double _bossHp;
     double _stealGold;
     double _totalGold;

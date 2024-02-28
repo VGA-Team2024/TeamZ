@@ -1,32 +1,37 @@
 ﻿using UnityEngine;
 
-public class PassiveSkill : Boss
+public class PassiveSkill : MonoBehaviour
 {
     [Header("NPCの種類")] [Tooltip("NPCの種類")] 
     public CharacterType _characterType;
 
+    [Header("対応するManager,対応するNPC")] [Tooltip("対応するManager,対応するNPC")]
     public NpcBase _npcBase;
     public GoldManager _goldManager;
+    public Boss _boss;
 
     private int _npcItems;
     private double _stealGold;
+    private float _inflictDamage;
 
     private void Start()
     {
         _npcItems = _npcBase._items;
         _stealGold = _goldManager._obtainGold;
+        _inflictDamage = _boss._subtractHpEverySecond;
     }
 
     private void Update()
     {
         _npcItems = _npcBase._items;
         _stealGold = _goldManager._obtainGold;
+        _inflictDamage = _boss._subtractHpEverySecond;
     }
 
     public enum CharacterType
     {
         Warrior,
-        Mage,
+        Wizard,
         Thief,
         Hermit,
         Bard
@@ -34,39 +39,42 @@ public class PassiveSkill : Boss
 
     public void UseSkill()
     {
-        // スキルの種類に応じて処理を実行
-        switch (_characterType)
+        if(_npcItems > 0) //Level:1 からスキルが発動
         {
-            case CharacterType.Warrior:
-                WarriorPassive();
-                break;
-            case CharacterType.Mage:
-                MagePassive();
-                break;
-            case CharacterType.Thief:
-                ThiefPassive();
-                break;
-            case CharacterType.Hermit:
-                HermitPassive();
-                break;
-            case CharacterType.Bard:
-                BardPassive();
-                break;
-            default:
-                Debug.LogError("Invalid character type.");
-                break;
+            // スキルの種類に応じて処理を実行
+            switch (_characterType)
+            {
+                case CharacterType.Warrior:
+                    WarriorPassive();
+                    break;
+                case CharacterType.Wizard:
+                    WizardPassive();
+                    break;
+                case CharacterType.Thief:
+                    ThiefPassive();
+                    break;
+                case CharacterType.Hermit:
+                    HermitPassive();
+                    break;
+                case CharacterType.Bard:
+                    BardPassive();
+                    break;
+                default:
+                    Debug.LogError("Invalid character type.");
+                    break;
+            }
         }
     }
 
     void WarriorPassive()
     {
-        SubtractHpEverySecond(Mathf.Pow(_subtractHpEverySecond * 1.25f, _npcItems - 1));
-        Debug.Log(_subtractHpEverySecond);
+        _boss.SubtractHpEverySecond(Mathf.Pow(_inflictDamage * 1.25f, _npcItems));
+        Debug.Log(_inflictDamage);
     }
 
-    void MagePassive()
+    void WizardPassive()
     {
-        _subtractHpEverySecond = Mathf.Pow(_subtractHpEverySecond * 1.25f, _npcItems - 1);
+        _boss._subtractHpEverySecond = Mathf.Pow(_inflictDamage * 1.25f, _npcItems);
     }
 
     void ThiefPassive()
