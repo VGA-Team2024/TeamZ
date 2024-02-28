@@ -3,27 +3,36 @@ using UnityEngine;
 using TMPro;
 
 /// <summary>
-/// 敵のHPの管理
-/// 敵の出現、消滅
+/// 敵のHPの管理 敵の出現、消滅
 /// </summary>
 public class Boss : MonoBehaviour
 {
     [Tooltip("敵のHPの管理をするクラスのインスタンス")] private static Boss Instance = default;
-    [Header("NPCが与えるダメージ")]
-    [SerializeField, Tooltip("NPCが与えるダメージ")] public float _subtractHpEverySecond = default;
-    [Header("敵のHPの総量")]
-    [SerializeField, Tooltip("敵のHPの総量")] public double _enemyHpTotalAmount = default;
-    [Header("現在のフロア")]
-    [SerializeField, Tooltip("現在のフロア")] int _currentFloor = default;
-    [Header("現在のベースフロア")]
-    [SerializeField, Tooltip("現在のベースフロア")] int _baseFloor = default;
-    [Header("敵のprefabの配列")]
-    [SerializeField, Tooltip("敵のprefabの配列")] GameObject[] _enemyList = default;
-    [SerializeField, Tooltip("呼び出す敵のprefab")] public int _currentEnemy = default;
-    [Header("テキスト（敵のHP）")]
-    [SerializeField, Tooltip("テキスト（敵のHP）")] TMP_Text _bossHpText = default;
-    public int _timer;
+
+    [Header("NPCが与えるダメージ")] [SerializeField, Tooltip("NPCが与えるダメージ")]
+    public float _subtractHpEverySecond = default;
+
+    [Header("敵のHPの総量")] [SerializeField, Tooltip("敵のHPの総量")]
+    public double _enemyHpTotalAmount = default;
+
+    [Header("現在のフロア")] [SerializeField, Tooltip("現在のフロア")]
+    int _currentFloor = default;
+
+    [Header("現在のベースフロア")] [SerializeField, Tooltip("現在のベースフロア")]
+    int _baseFloor = default;
+
+    [Header("敵のprefabの配列")] [SerializeField, Tooltip("敵のprefabの配列")]
+    GameObject[] _enemyList = default;
+
+    [SerializeField, Tooltip("呼び出す敵のprefab")]
+    public int _currentEnemy = default;
+
+    [Header("テキスト（敵のHP）")] [SerializeField, Tooltip("テキスト（敵のHP）")]
+    TMP_Text _bossHpText = default;
+
+    public float _timer;
     public GoldManager _gold;
+    private bool _isCoroutine = false;
 
     private void Awake()
     {
@@ -43,30 +52,26 @@ public class Boss : MonoBehaviour
     private void Update()
     {
         _bossHpText.text = _enemyHpTotalAmount.ToString();
-        Debug.Log(_enemyHpTotalAmount);
-        if (_enemyHpTotalAmount <= 0)
+        if (_enemyHpTotalAmount <= 0 && _currentFloor != 31 && !_isCoroutine)
         {
-            if (_currentFloor != 31)
-            {
-                // 敵が消えてから数秒後に出現
-                StartCoroutine(Coroutine());
-            }
-            else
-            {
-                EnemyDefeat();
-                Debug.Log("GameClear");
-            }
+            // 敵が消えてから数秒後に出現
+            StartCoroutine(Coroutine());
+        }
+        else if (_currentFloor == 31)
+        {
+            EnemyDefeat();
+            Debug.Log("GameClear");
         }
     }
 
     private void FixedUpdate()
     {
-        _timer += (int)Time.deltaTime;
-        // 10秒たったら呼び出す
-        if (_timer >= 500)
+        _timer += Time.deltaTime;
+        if (_timer >= 10f)
         {
+            //約10秒
             _enemyHpTotalAmount -= _subtractHpEverySecond;
-            _timer = 0;
+            _timer = 0f;
         }
     }
 
@@ -87,6 +92,7 @@ public class Boss : MonoBehaviour
     public void SubtractHpEverySecond(float value)
     {
         _subtractHpEverySecond += value;
+        //Debug.Log(_subtractHpEverySecond);
     }
 
     /// <summary>
@@ -100,6 +106,7 @@ public class Boss : MonoBehaviour
             _baseFloor = _currentFloor;
             _currentEnemy++; // 呼び出す敵のindexも更新
         }
+
         _enemyList[_currentEnemy].gameObject.SetActive(true);
         _gold.DropGold(_currentFloor);
         switch (_baseFloor) // ボスのHPの計算
@@ -140,8 +147,10 @@ public class Boss : MonoBehaviour
     /// <returns></returns>
     IEnumerator Coroutine()
     {
+        _isCoroutine = true;
         EnemyDefeat();
         yield return new WaitForSeconds(1);
         EnemyAppear();
+        _isCoroutine = false;
     }
 }

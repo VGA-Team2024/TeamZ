@@ -2,28 +2,31 @@
 
 public class PassiveSkill : MonoBehaviour
 {
-    [Header("NPCの種類")]
-    [Tooltip("NPCの種類")]
-    public CharacterType characterType;
+    [Header("NPCの種類")] [Tooltip("NPCの種類")] 
+    public CharacterType _characterType;
+
     public NpcBase _npcBase;
     public Boss _boss;
     public GoldManager _goldManager;
-    int _npcLevel;
-    double _stealGold;
-    float _inflictDamage;
+
+    private int _npcItems;
+    private double _stealGold;
+    private float _inflictDamage;
 
     private void Start()
     {
-        _npcLevel = _npcBase._items;
+        _npcItems = _npcBase._items;
         _stealGold = _goldManager._obtainGold;
         _inflictDamage = _boss._subtractHpEverySecond;
     }
+
     private void Update()
     {
-        _npcLevel = _npcBase._items;
+        _npcItems = _npcBase._items;
         _stealGold = _goldManager._obtainGold;
         _inflictDamage = _boss._subtractHpEverySecond;
     }
+
     public enum CharacterType
     {
         Warrior,
@@ -36,7 +39,7 @@ public class PassiveSkill : MonoBehaviour
     public void UseSkill()
     {
         // スキルの種類に応じて処理を実行
-        switch (characterType)
+        switch (_characterType)
         {
             case CharacterType.Warrior:
                 WarriorPassive();
@@ -61,17 +64,18 @@ public class PassiveSkill : MonoBehaviour
 
     void WarriorPassive()
     {
-        _boss.SubtractHpEverySecond(Mathf.Pow(_inflictDamage * 1.25f, _npcLevel - 1));
+        _boss.SubtractHpEverySecond(Mathf.Pow(_inflictDamage * 1.25f, _npcItems - 1));
+        Debug.Log(_inflictDamage);
     }
 
     void MagePassive()
     {
-        _boss._subtractHpEverySecond = Mathf.Pow(_inflictDamage * 1.25f, _npcLevel - 1);
+        _boss._subtractHpEverySecond = Mathf.Pow(_inflictDamage * 1.25f, _npcItems - 1);
     }
 
     void ThiefPassive()
     {
-      _goldManager.AddEverySecond(((float)_stealGold * 0.0001f) * _npcLevel);
+        _goldManager.AddEverySecond(((float)_stealGold * 0.0001f) * _npcItems);
     }
 
     void HermitPassive()
